@@ -1,24 +1,557 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>C3nt1n3L 👁️‍🗨️</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sofía 50F14 - Asistente Legal Laboral</title>
+    <meta name="description" content="Asistente legal gratuita para derechos laborales en México. Sin abogados, sin dinero, pero no sin derechos.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1e3c72 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .chat-header .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .status-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 12px;
+            height: 12px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            max-width: 85%;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.sofia {
+            margin-left: 0;
+        }
+
+        .message.user {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .message-content {
+            padding: 15px 18px;
+            border-radius: 18px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .sofia .message-content {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #2c5aa0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .user .message-content {
+            background: #2c5aa0;
+            color: white;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .sofia .message-time {
+            text-align: left;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px 18px;
+            background: white;
+            border-radius: 18px;
+            border-left: 4px solid #2c5aa0;
+            max-width: 85%;
+        }
+
+        .typing-dots {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: #64748b;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: scale(1); opacity: 0.5; }
+            30% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .chat-input-container {
+            border-top: 1px solid #e2e8f0;
+            padding: 20px;
+            background: white;
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            min-height: 44px;
+            max-height: 120px;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 22px;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .chat-input:focus {
+            border-color: #2c5aa0;
+        }
+
+        .send-button {
+            width: 44px;
+            height: 44px;
+            background: #2c5aa0;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .send-button:hover {
+            background: #1e3c72;
+            transform: scale(1.05);
+        }
+
+        .send-button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .welcome-message {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .urgent-badge {
+            background: #ef4444;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .legal-source {
+            background: #f1f5f9;
+            border-left: 3px solid #64748b;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 13px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .chat-container {
+                height: 95vh;
+                border-radius: 12px;
+            }
+            
+            .chat-header {
+                padding: 15px;
+            }
+            
+            .chat-header h1 {
+                font-size: 20px;
+            }
+            
+            .chat-messages {
+                padding: 15px;
+            }
+            
+            .message {
+                max-width: 95%;
+            }
+            
+            .message-content {
+                padding: 12px 15px;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>C3nt1n3L 👁️‍🗨️</h1>
-    <p>Vigilancia ciudadana | Derechos digitales | Ciberseguridad</p>
-  </header>
-  <main>
-    <section>
-      <h2>🚨 Alerta Ciudadana</h2>
-      <p>Sitio en construcción. Pronto recibirás herramientas para defender tu privacidad digital.</p>
-    </section>
-  </main>
-  <footer>
-    <p>&copy; 2025 C3nt1n3L. Todos los derechos reservados.</p>
-  </footer>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="status-indicator"></div>
+            <h1>⚖️ Sofía 50F14</h1>
+            <div class="tagline">"Sin abogados, sin dinero, pero no sin derechos"</div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-message">
+                <h3>🛡️ Bienvenid@ a Sofía</h3>
+                <p><strong>Tu asistente legal descentralizada para derechos laborales</strong></p>
+                <br>
+                <p>🎯 <strong>Estoy aquí si:</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>Te despidieron injustamente</li>
+                    <li>No te pagan horas extras</li>
+                    <li>Sufres acoso laboral</li>
+                    <li>Necesitas conocer tus derechos</li>
+                </ul>
+                <p>💪 <strong>Escribe tu situación y te ayudo con:</strong> Información legal precisa, próximos pasos concretos, y fundamentos constitucionales.</p>
+                <br>
+                <p style="font-size: 12px; color: #64748b;">🔒 Privacidad total • 📚 Fuentes verificables • ⚖️ Perspectiva del trabajador</p>
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <span></span><span></span><span></span>
+            </div>
+            <span style="margin-left: 10px; font-size: 13px; color: #64748b;">Sofía está escribiendo...</span>
+        </div>
+
+        <div class="chat-input-container">
+            <div class="chat-input-wrapper">
+                <textarea 
+                    id="chatInput" 
+                    class="chat-input" 
+                    placeholder="Describe tu situación laboral... (ej: Me despidieron sin justificación)"
+                    rows="1"
+                ></textarea>
+                <button id="sendButton" class="send-button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Legal knowledge base - simplified for demo
+        const legalKnowledge = {
+            despido: {
+                patterns: ['despid', 'corri', 'terminación', 'rescisión', 'cese'],
+                response: `<div class="urgent-badge">⚡ URGENTE</div>
+<strong>TIENES DERECHOS PROTEGIDOS:</strong>
+
+Según el <strong>Artículo 47</strong> de la Ley Federal del Trabajo, tu patrón SOLO puede rescindirte sin responsabilidad en casos muy específicos (faltas graves comprobadas).
+
+<strong>Si tu despido NO encaja en esas causales:</strong>
+• Tienes derecho a <strong>indemnización</strong> (3 meses de salario)
+• Más <strong>20 días por cada año trabajado</strong>
+• Más <strong>aguinaldo y vacaciones proporcionales</strong>
+
+<div class="legal-source">
+📚 <strong>Fundamento constitucional:</strong> Art. 123 Constitucional garantiza estabilidad laboral.
+</div>
+
+<strong>¿Qué hacer AHORA?</strong>
+1. Documenta TODO (mensajes, testigos, fechas)
+2. Solicita tu <strong>carta de terminación por ESCRITO</strong>
+3. Tienes <strong>1 AÑO</strong> para demandar desde el despido`
+            },
+            
+            salario: {
+                patterns: ['salario', 'sueldo', 'pago', 'mínimo', 'dinero'],
+                response: `<div class="urgent-badge">⚡ ILEGAL</div>
+<strong>ES ILEGAL PAGAR MENOS DEL MÍNIMO:</strong>
+
+<strong>Tu derecho:</strong> Ningún patrón puede pagarte menos del salario mínimo (Art. 90 LFT).
+
+<strong>Salario mínimo 2024:</strong> $248.93 pesos diarios (zona libre frontera: $374.89)
+
+<strong>Si te pagan menos:</strong>
+• Es VIOLACIÓN a la Constitución (Art. 123, fracción VI)
+• Puedes demandar diferencias + recargos
+• El patrón debe pagar multa adicional
+
+<div class="legal-source">
+📚 <strong>Fundamento:</strong> "El salario mínimo será suficiente para satisfacer las necesidades normales de un jefe de familia" - Constitución Mexicana
+</div>
+
+<strong>Actúa:</strong> Documenta tus recibos de pago. Tienes derecho a recibir TODO atrasado.`
+            },
+            
+            horas: {
+                patterns: ['hora', 'jornada', 'tiempo', 'extra', 'horario'],
+                response: `<strong>LÍMITES CONSTITUCIONALES DE TRABAJO:</strong>
+
+<strong>Máximos legales (Art. 61 LFT):</strong>
+• Jornada diurna: <strong>8 horas máximo</strong>
+• Jornada nocturna: <strong>7 horas máximo</strong>
+• Jornada mixta: <strong>7.5 horas máximo</strong>
+
+<strong>Tiempo extra:</strong>
+• Máximo <strong>3 horas diarias</strong>
+• Máximo <strong>3 veces por semana</strong>
+• Se paga <strong>DOBLE</strong> las primeras 2 horas extra
+• Se paga <strong>TRIPLE</strong> a partir de la 3ra hora
+
+<div class="legal-source">
+📚 <strong>Fundamento:</strong> Art. 123 Constitucional - "La jornada máxima será de ocho horas"
+</div>
+
+<strong>Si te obligan a trabajar más:</strong> Es explotación laboral prohibida por la Constitución.
+
+<strong>Defiéndete:</strong> Registra tus horarios reales. Puedes demandar pago de horas extras no pagadas.`
+            },
+
+            acoso: {
+                patterns: ['acoso', 'hostigamiento', 'discriminación', 'maltrato', 'abuso'],
+                response: `<div class="urgent-badge">⚡ DENUNCIA YA</div>
+<strong>EL ACOSO LABORAL ES DELITO:</strong>
+
+<strong>Tus derechos protegidos:</strong>
+• Ambiente laboral libre de violencia (Art. 2 LFT)
+• Dignidad y no discriminación (Art. 1° Constitucional)
+• Protección contra hostigamiento sexual
+
+<strong>Tipos de acoso que puedes denunciar:</strong>
+• Verbal, físico, psicológico
+• Sexual o por razón de género
+• Por origen, religión, preferencias
+• Mobbing o acoso grupal
+
+<div class="legal-source">
+📚 <strong>Fundamentos:</strong> Art. 1° y 123 Constitucional, Ley Federal para Prevenir y Eliminar la Discriminación
+</div>
+
+<strong>ACTÚA INMEDIATO:</strong>
+1. Documenta CADA incidente (fecha, hora, testigos)
+2. Denuncia ante PROFEDET o CONAPRED
+3. Solicita cambio de área o medidas cautelares
+4. NO estás obligad@ a soportar abuso`
+            }
+        };
+
+        // DOM elements
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        // Auto-resize textarea
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+
+        // Send message on Enter (but allow Shift+Enter for new lines)
+        chatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        sendButton.addEventListener('click', sendMessage);
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            chatInput.value = '';
+            chatInput.style.height = 'auto';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate processing delay and respond
+            setTimeout(() => {
+                const response = generateResponse(message);
+                hideTypingIndicator();
+                addMessage(response, 'sofia');
+            }, 1500 + Math.random() * 1000); // 1.5-2.5 seconds
+        }
+
+        function addMessage(content, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('es-MX', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+
+            messageDiv.innerHTML = `
+                <div class="message-content">${content}</div>
+                <div class="message-time">${timeString}</div>
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'block';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
+
+        function generateResponse(userMessage) {
+            const messageLower = userMessage.toLowerCase();
+            
+            // Check each knowledge category
+            for (const [category, info] of Object.entries(legalKnowledge)) {
+                for (const pattern of info.patterns) {
+                    if (messageLower.includes(pattern)) {
+                        return info.response + `
+                        
+<hr style="margin: 15px 0; border: none; border-top: 1px solid #e2e8f0;">
+<div style="font-size: 12px; color: #64748b; font-style: italic;">
+⚖️ Sofía v0.1 - Interpretación centrada en derechos del trabajador<br>
+📚 Todas las fuentes son verificables en la Ley Federal del Trabajo
+</div>`;
+                    }
+                }
+            }
+
+            // Default response for unrecognized queries
+            return `<strong>🤔 Necesito más información para ayudarte mejor.</strong>
+
+<strong>¿Puedes contarme más sobre:</strong>
+• ¿Qué situación específica estás viviendo?
+• ¿Es sobre despido, salario, horarios, o acoso?
+• ¿Qué acción tomó tu patrón?
+
+<strong>Temas que manejo bien:</strong>
+• Despidos injustificados
+• Problemas de salario y pagos
+• Jornadas laborales excesivas  
+• Acoso y discriminación laboral
+• Derechos básicos del trabajador
+
+<strong>Recuerda:</strong> Tienes derechos fundamentales protegidos por la Constitución, aunque necesite más detalles para guiarte específicamente.
+
+<div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
+⚠️ <strong>Si es urgente:</strong> No esperes. Busca asesoría legal inmediata en PROFEDET o con un abogado laboralista.
+</div>`;
+        }
+
+        // Add some sample questions for easy testing
+        function addSampleQuestion(question) {
+            chatInput.value = question;
+            sendMessage();
+        }
+
+        // Initialize
+        console.log('Sofía 50F14 initialized - Ready to help workers defend their rights');
+    </script>
 </body>
 </html>
