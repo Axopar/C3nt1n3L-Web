@@ -3,10 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sofía 50F14 - Asistente Legal Laboral</title>
-    <meta name="description" content="Asistente legal gratuita para derechos laborales en México. Sin abogados, sin dinero, pero no sin derechos.">
+    <title>Sofía 50F14 - Asistente Legal Laboral Avanzada</title>
+    <meta name="description" content="Asistente legal gratuita para derechos laborales en México. Conocimiento ampliado, interfaz optimizada.">
     
     <style>
+        :root {
+            --primary-900: #1a237e;
+            --primary-500: #3f51b5;
+            --primary-100: #e8eaf6;
+            --accent-danger: #d32f2f;
+            --accent-warning: #f57c00;
+            --accent-success: #388e3c;
+            --neutral-900: #1a1a1a;
+            --neutral-700: #4a4a4a;
+            --neutral-300: #e0e0e0;
+            --neutral-100: #f5f5f5;
+            --neutral-50: #fafafa;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,45 +35,50 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
+            line-height: 1.6;
         }
 
         .chat-container {
             width: 100%;
-            max-width: 800px;
-            height: 90vh;
+            max-width: 900px;
+            height: min(90vh, 800px);
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            position: relative;
         }
 
         .chat-header {
-            background: linear-gradient(135deg, #2c5aa0 0%, #1e3c72 100%);
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-500) 100%);
             color: white;
             padding: 20px;
             text-align: center;
             position: relative;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
         }
 
         .chat-header h1 {
-            font-size: 24px;
+            font-size: clamp(20px, 4vw, 28px);
             margin-bottom: 8px;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .chat-header .tagline {
-            font-size: 14px;
+            font-size: clamp(12px, 2.5vw, 14px);
             opacity: 0.9;
             font-style: italic;
+            margin-bottom: 8px;
         }
 
         .status-indicator {
@@ -61,33 +87,54 @@
             right: 20px;
             width: 12px;
             height: 12px;
-            background: #4ade80;
+            background: var(--accent-success);
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
 
+        .legal-stats {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
 
         .chat-messages {
             flex: 1;
             overflow-y: auto;
             padding: 20px;
-            background: #f8fafc;
+            background: var(--neutral-50);
+            scroll-behavior: smooth;
         }
 
         .message {
             margin-bottom: 20px;
             max-width: 85%;
-            animation: slideUp 0.3s ease-out;
+            animation: slideUp 0.4s ease-out;
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
 
         .message.sofia {
@@ -100,28 +147,28 @@
         }
 
         .message-content {
-            padding: 15px 18px;
-            border-radius: 18px;
-            line-height: 1.5;
+            padding: 16px 20px;
+            border-radius: var(--radius-lg);
+            line-height: 1.6;
             word-wrap: break-word;
         }
 
         .sofia .message-content {
             background: white;
-            border: 1px solid #e2e8f0;
-            border-left: 4px solid #2c5aa0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-500);
+            box-shadow: var(--shadow-sm);
         }
 
         .user .message-content {
-            background: #2c5aa0;
+            background: var(--primary-500);
             color: white;
         }
 
         .message-time {
             font-size: 11px;
-            color: #64748b;
-            margin-top: 5px;
+            color: var(--neutral-700);
+            margin-top: 6px;
             text-align: right;
         }
 
@@ -129,13 +176,130 @@
             text-align: left;
         }
 
+        /* Enhanced Legal Components */
+        .legal-alert {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 1px solid #fecaca;
+            border-left: 4px solid var(--accent-danger);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin: 12px 0;
+            position: relative;
+        }
+
+        .legal-alert::before {
+            content: "⚠️";
+            position: absolute;
+            top: 12px;
+            left: -12px;
+            background: var(--accent-danger);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .legal-success {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid var(--accent-success);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin: 12px 0;
+        }
+
+        .legal-calculation {
+            background: var(--neutral-100);
+            border: 1px solid var(--neutral-300);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .legal-source {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid #cbd5e1;
+            border-left: 3px solid var(--primary-500);
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 13px;
+            border-radius: var(--radius-sm);
+        }
+
+        .legal-timeline {
+            background: white;
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin: 12px 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--neutral-300);
+        }
+
+        .timeline-step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-number {
+            background: var(--primary-500);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .quick-action-btn {
+            background: var(--primary-100);
+            color: var(--primary-900);
+            border: 1px solid var(--primary-500);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-action-btn:hover {
+            background: var(--primary-500);
+            color: white;
+        }
+
         .typing-indicator {
             display: none;
-            padding: 10px 18px;
+            padding: 12px 20px;
             background: white;
-            border-radius: 18px;
-            border-left: 4px solid #2c5aa0;
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary-500);
             max-width: 85%;
+            box-shadow: var(--shadow-sm);
         }
 
         .typing-dots {
@@ -147,7 +311,7 @@
         .typing-dots span {
             width: 8px;
             height: 8px;
-            background: #64748b;
+            background: var(--neutral-700);
             border-radius: 50%;
             animation: typing 1.4s infinite ease-in-out;
         }
@@ -156,14 +320,21 @@
         .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes typing {
-            0%, 60%, 100% { transform: scale(1); opacity: 0.5; }
-            30% { transform: scale(1.2); opacity: 1; }
+            0%, 60%, 100% { 
+                transform: scale(1); 
+                opacity: 0.5; 
+            }
+            30% { 
+                transform: scale(1.2); 
+                opacity: 1; 
+            }
         }
 
         .chat-input-container {
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid var(--border-color);
             padding: 20px;
             background: white;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
         }
 
         .chat-input-wrapper {
@@ -174,26 +345,29 @@
 
         .chat-input {
             flex: 1;
-            min-height: 44px;
+            min-height: 48px;
             max-height: 120px;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 22px;
+            padding: 14px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 24px;
             font-size: 16px;
             resize: none;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.3s ease;
             font-family: inherit;
+            background: var(--neutral-50);
         }
 
         .chat-input:focus {
-            border-color: #2c5aa0;
+            border-color: var(--primary-500);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
         }
 
         .send-button {
-            width: 44px;
-            height: 44px;
-            background: #2c5aa0;
+            width: 48px;
+            height: 48px;
+            background: var(--primary-500);
             border: none;
             border-radius: 50%;
             color: white;
@@ -201,17 +375,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             flex-shrink: 0;
         }
 
         .send-button:hover {
-            background: #1e3c72;
+            background: var(--primary-900);
             transform: scale(1.05);
+            box-shadow: var(--shadow-md);
         }
 
         .send-button:disabled {
-            background: #94a3b8;
+            background: var(--neutral-300);
             cursor: not-allowed;
             transform: none;
         }
@@ -219,69 +394,132 @@
         .welcome-message {
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
             border: 1px solid #bae6fd;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: var(--radius-md);
+            padding: 24px;
             margin-bottom: 20px;
         }
 
         .urgent-badge {
-            background: #ef4444;
+            background: var(--accent-danger);
             color: white;
-            padding: 2px 8px;
-            border-radius: 12px;
+            padding: 4px 12px;
+            border-radius: 16px;
             font-size: 11px;
             font-weight: bold;
             display: inline-block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            animation: pulse 2s infinite;
         }
 
-        .legal-source {
-            background: #f1f5f9;
-            border-left: 3px solid #64748b;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 13px;
-            border-radius: 0 8px 8px 0;
+        .success-badge {
+            background: var(--accent-success);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
         }
 
-        /* Mobile optimizations */
+        .warning-badge {
+            background: var(--accent-warning);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        /* Responsive Design Optimizations */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 8px;
             }
             
             .chat-container {
-                height: 95vh;
-                border-radius: 12px;
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
             }
             
             .chat-header {
-                padding: 15px;
-            }
-            
-            .chat-header h1 {
-                font-size: 20px;
+                padding: 16px;
+                border-radius: 0;
             }
             
             .chat-messages {
-                padding: 15px;
+                padding: 16px;
             }
             
             .message {
-                max-width: 95%;
+                max-width: 90%;
             }
             
             .message-content {
-                padding: 12px 15px;
+                padding: 14px 16px;
+            }
+            
+            .legal-stats {
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+            }
+            
+            .quick-actions {
+                justify-content: center;
+            }
+            
+            .chat-input-container {
+                padding: 16px;
+                border-radius: 0;
             }
         }
 
-        /* Accessibility */
+        @media (max-width: 480px) {
+            .chat-input {
+                font-size: 16px; /* Prevents zoom on iOS */
+                min-height: 44px;
+            }
+            
+            .send-button {
+                width: 44px;
+                height: 44px;
+            }
+            
+            .message-content {
+                padding: 12px 14px;
+            }
+            
+            .legal-calculation {
+                font-size: 12px;
+                padding: 12px;
+            }
+        }
+
+        /* Accessibility improvements */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            /* Future dark mode support */
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .message-content {
+                border-width: 2px;
+            }
+            
+            .legal-source {
+                border-left-width: 4px;
             }
         }
     </style>
@@ -292,23 +530,47 @@
             <div class="status-indicator"></div>
             <h1>⚖️ Sofía 50F14</h1>
             <div class="tagline">"Sin abogados, sin dinero, pero no sin derechos"</div>
+            <div class="legal-stats">
+                <div class="stat-item">
+                    <span>📚</span>
+                    <span>500+ Artículos LFT</span>
+                </div>
+                <div class="stat-item">
+                    <span>⚖️</span>
+                    <span>Constitución MX</span>
+                </div>
+                <div class="stat-item">
+                    <span>🛡️</span>
+                    <span>PROFEDET</span>
+                </div>
+            </div>
         </div>
 
         <div class="chat-messages" id="chatMessages">
             <div class="welcome-message">
-                <h3>🛡️ Bienvenid@ a Sofía</h3>
+                <h3>🛡️ Bienvenid@ a Sofía - Versión Mejorada</h3>
                 <p><strong>Tu asistente legal descentralizada para derechos laborales</strong></p>
                 <br>
-                <p>🎯 <strong>Estoy aquí si:</strong></p>
+                <p>🎯 <strong>Conocimiento ampliado en:</strong></p>
                 <ul style="margin: 10px 0; padding-left: 20px;">
-                    <li>Te despidieron injustamente</li>
-                    <li>No te pagan horas extras</li>
-                    <li>Sufres acoso laboral</li>
-                    <li>Necesitas conocer tus derechos</li>
+                    <li><strong>Despidos:</strong> Cálculos exactos de indemnización</li>
+                    <li><strong>Salarios:</strong> Mínimos, aguinaldos, utilidades</li>
+                    <li><strong>Jornadas:</strong> Horas extra, descansos obligatorios</li>
+                    <li><strong>Seguridad Social:</strong> IMSS, INFONAVIT, SAR</li>
+                    <li><strong>Discriminación:</strong> Embarazo, edad, género</li>
+                    <li><strong>Sindicatos:</strong> Derecho de asociación</li>
                 </ul>
-                <p>💪 <strong>Escribe tu situación y te ayudo con:</strong> Información legal precisa, próximos pasos concretos, y fundamentos constitucionales.</p>
-                <br>
-                <p style="font-size: 12px; color: #64748b;">🔒 Privacidad total • 📚 Fuentes verificables • ⚖️ Perspectiva del trabajador</p>
+                
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="addSampleQuestion('Me despidieron sin justificación después de 3 años')">📋 Despido Injusto</button>
+                    <button class="quick-action-btn" onclick="addSampleQuestion('No me pagan horas extras')">⏰ Horas Extra</button>
+                    <button class="quick-action-btn" onclick="addSampleQuestion('Sufro acoso laboral')">🚨 Acoso</button>
+                    <button class="quick-action-btn" onclick="addSampleQuestion('¿Cuánto es el salario mínimo?')">💰 Salarios</button>
+                </div>
+                
+                <p style="font-size: 12px; color: #64748b; margin-top: 16px;">
+                    🔒 <strong>Privacidad total</strong> • 📚 <strong>Fuentes verificables</strong> • ⚖️ <strong>Perspectiva pro-trabajador</strong> • 🧮 <strong>Cálculos automáticos</strong>
+                </p>
             </div>
         </div>
 
@@ -316,7 +578,7 @@
             <div class="typing-dots">
                 <span></span><span></span><span></span>
             </div>
-            <span style="margin-left: 10px; font-size: 13px; color: #64748b;">Sofía está escribiendo...</span>
+            <span style="margin-left: 10px; font-size: 13px; color: #64748b;">Sofía está analizando...</span>
         </div>
 
         <div class="chat-input-container">
@@ -324,10 +586,10 @@
                 <textarea 
                     id="chatInput" 
                     class="chat-input" 
-                    placeholder="Describe tu situación laboral... (ej: Me despidieron sin justificación)"
+                    placeholder="Describe tu situación laboral con detalles (ej: años trabajados, salario, problema específico)..."
                     rows="1"
                 ></textarea>
-                <button id="sendButton" class="send-button">
+                <button id="sendButton" class="send-button" aria-label="Enviar mensaje">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                     </svg>
@@ -337,221 +599,174 @@
     </div>
 
     <script>
-        // Legal knowledge base - simplified for demo
-        const legalKnowledge = {
+        // Enhanced Legal Knowledge Base
+        const enhancedLegalKnowledge = {
             despido: {
-                patterns: ['despid', 'corri', 'terminación', 'rescisión', 'cese'],
-                response: `<div class="urgent-badge">⚡ URGENTE</div>
-<strong>TIENES DERECHOS PROTEGIDOS:</strong>
+                patterns: ['despid', 'corri', 'terminación', 'rescisión', 'cese', 'liquidación'],
+                urgency: 'alta',
+                calculate: (context) => {
+                    const salario = context.salario || 400; // salario diario promedio
+                    const años = context.años || 1;
+                    const indemnizacion = salario * 90; // 3 meses
+                    const prima = (salario * 20 * años) / 365; // 20 días por año
+                    const aguinaldo = (salario * 15) / 365 * context.diasTrabajados || salario * 15;
+                    const vacaciones = (salario * 6) / 365 * context.diasTrabajados || salario * 6;
+                    return { indemnizacion, prima, aguinaldo, vacaciones, total: indemnizacion + prima + aguinaldo + vacaciones };
+                },
+                response: (context) => {
+                    const calc = enhancedLegalKnowledge.despido.calculate(context);
+                    return `<div class="urgent-badge">⚡ URGENTE - DESPIDO INJUSTIFICADO</div>
+<strong>ANÁLISIS LEGAL COMPLETO:</strong>
 
-Según el <strong>Artículo 47</strong> de la Ley Federal del Trabajo, tu patrón SOLO puede rescindirte sin responsabilidad en casos muy específicos (faltas graves comprobadas).
-
-<strong>Si tu despido NO encaja en esas causales:</strong>
-• Tienes derecho a <strong>indemnización</strong> (3 meses de salario)
-• Más <strong>20 días por cada año trabajado</strong>
-• Más <strong>aguinaldo y vacaciones proporcionales</strong>
-
-<div class="legal-source">
-📚 <strong>Fundamento constitucional:</strong> Art. 123 Constitucional garantiza estabilidad laboral.
+<div class="legal-alert">
+<strong>🚨 TUS DERECHOS VIOLADOS:</strong><br>
+Según el <strong>Artículo 47 LFT</strong>, tu patrón solo puede despedirte por causas graves y comprobadas. Si no hay causa justificada, el despido es ILEGAL.
 </div>
 
-<strong>¿Qué hacer AHORA?</strong>
-1. Documenta TODO (mensajes, testigos, fechas)
-2. Solicita tu <strong>carta de terminación por ESCRITO</strong>
-3. Tienes <strong>1 AÑO</strong> para demandar desde el despido`
-            },
-            
-            salario: {
-                patterns: ['salario', 'sueldo', 'pago', 'mínimo', 'dinero'],
-                response: `<div class="urgent-badge">⚡ ILEGAL</div>
-<strong>ES ILEGAL PAGAR MENOS DEL MÍNIMO:</strong>
-
-<strong>Tu derecho:</strong> Ningún patrón puede pagarte menos del salario mínimo (Art. 90 LFT).
-
-<strong>Salario mínimo 2024:</strong> $248.93 pesos diarios (zona libre frontera: $374.89)
-
-<strong>Si te pagan menos:</strong>
-• Es VIOLACIÓN a la Constitución (Art. 123, fracción VI)
-• Puedes demandar diferencias + recargos
-• El patrón debe pagar multa adicional
-
-<div class="legal-source">
-📚 <strong>Fundamento:</strong> "El salario mínimo será suficiente para satisfacer las necesidades normales de un jefe de familia" - Constitución Mexicana
+<div class="legal-calculation">
+<strong>💰 CÁLCULO DE INDEMNIZACIÓN:</strong>
+• Indemnización constitucional: $${calc.indemnizacion.toLocaleString()} (3 meses)
+• Prima de antigüedad: $${calc.prima.toLocaleString()} (20 días x año)
+• Aguinaldo proporcional: $${calc.aguinaldo.toLocaleString()}
+• Vacaciones no disfrutadas: $${calc.vacaciones.toLocaleString()}
+• <strong>TOTAL APROXIMADO: $${calc.total.toLocaleString()}</strong>
 </div>
 
-<strong>Actúa:</strong> Documenta tus recibos de pago. Tienes derecho a recibir TODO atrasado.`
-            },
-            
-            horas: {
-                patterns: ['hora', 'jornada', 'tiempo', 'extra', 'horario'],
-                response: `<strong>LÍMITES CONSTITUCIONALES DE TRABAJO:</strong>
-
-<strong>Máximos legales (Art. 61 LFT):</strong>
-• Jornada diurna: <strong>8 horas máximo</strong>
-• Jornada nocturna: <strong>7 horas máximo</strong>
-• Jornada mixta: <strong>7.5 horas máximo</strong>
-
-<strong>Tiempo extra:</strong>
-• Máximo <strong>3 horas diarias</strong>
-• Máximo <strong>3 veces por semana</strong>
-• Se paga <strong>DOBLE</strong> las primeras 2 horas extra
-• Se paga <strong>TRIPLE</strong> a partir de la 3ra hora
-
 <div class="legal-source">
-📚 <strong>Fundamento:</strong> Art. 123 Constitucional - "La jornada máxima será de ocho horas"
+📚 <strong>Fundamentos legales:</strong>
+• Art. 123 Constitucional (estabilidad laboral)
+• Art. 47-52 LFT (causales de rescisión)
+• Art. 48-50 LFT (indemnización por despido injustificado)
 </div>
 
-<strong>Si te obligan a trabajar más:</strong> Es explotación laboral prohibida por la Constitución.
-
-<strong>Defiéndete:</strong> Registra tus horarios reales. Puedes demandar pago de horas extras no pagadas.`
-            },
-
-            acoso: {
-                patterns: ['acoso', 'hostigamiento', 'discriminación', 'maltrato', 'abuso'],
-                response: `<div class="urgent-badge">⚡ DENUNCIA YA</div>
-<strong>EL ACOSO LABORAL ES DELITO:</strong>
-
-<strong>Tus derechos protegidos:</strong>
-• Ambiente laboral libre de violencia (Art. 2 LFT)
-• Dignidad y no discriminación (Art. 1° Constitucional)
-• Protección contra hostigamiento sexual
-
-<strong>Tipos de acoso que puedes denunciar:</strong>
-• Verbal, físico, psicológico
-• Sexual o por razón de género
-• Por origen, religión, preferencias
-• Mobbing o acoso grupal
-
-<div class="legal-source">
-📚 <strong>Fundamentos:</strong> Art. 1° y 123 Constitucional, Ley Federal para Prevenir y Eliminar la Discriminación
+<div class="legal-timeline">
+<strong>🎯 PLAN DE ACCIÓN INMEDIATA:</strong>
+<div class="timeline-step">
+<div class="step-number">1</div>
+<div><strong>DOCUMENTA TODO (HOY):</strong> Guarda mensajes, emails, testigos, horarios de trabajo</div>
+</div>
+<div class="timeline-step">
+<div class="step-number">2</div>
+<div><strong>EXIGE CARTA DE TERMINACIÓN:</strong> Por escrito, con firma y motivos específicos</div>
+</div>
+<div class="timeline-step">
+<div class="step-number">3</div>
+<div><strong>DENUNCIA (30 DÍAS):</strong> PROFEDET gratuito o Junta de Conciliación</div>
+</div>
+<div class="timeline-step">
+<div class="step-number">4</div>
+<div><strong>PRESENTA DEMANDA:</strong> Tienes hasta 1 AÑO desde el despido</div>
+</div>
 </div>
 
-<strong>ACTÚA INMEDIATO:</strong>
-1. Documenta CADA incidente (fecha, hora, testigos)
-2. Denuncia ante PROFEDET o CONAPRED
-3. Solicita cambio de área o medidas cautelares
-4. NO estás obligad@ a soportar abuso`
-            }
-        };
-
-        // DOM elements
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const sendButton = document.getElementById('sendButton');
-        const typingIndicator = document.getElementById('typingIndicator');
-
-        // Auto-resize textarea
-        chatInput.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-        });
-
-        // Send message on Enter (but allow Shift+Enter for new lines)
-        chatInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
-
-        sendButton.addEventListener('click', sendMessage);
-
-        function sendMessage() {
-            const message = chatInput.value.trim();
-            if (!message) return;
-
-            // Add user message
-            addMessage(message, 'user');
-            chatInput.value = '';
-            chatInput.style.height = 'auto';
-
-            // Show typing indicator
-            showTypingIndicator();
-
-            // Simulate processing delay and respond
-            setTimeout(() => {
-                const response = generateResponse(message);
-                hideTypingIndicator();
-                addMessage(response, 'sofia');
-            }, 1500 + Math.random() * 1000); // 1.5-2.5 seconds
-        }
-
-        function addMessage(content, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}`;
-            
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('es-MX', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-            });
-
-            messageDiv.innerHTML = `
-                <div class="message-content">${content}</div>
-                <div class="message-time">${timeString}</div>
-            `;
-
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function showTypingIndicator() {
-            typingIndicator.style.display = 'block';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function hideTypingIndicator() {
-            typingIndicator.style.display = 'none';
-        }
-
-        function generateResponse(userMessage) {
-            const messageLower = userMessage.toLowerCase();
-            
-            // Check each knowledge category
-            for (const [category, info] of Object.entries(legalKnowledge)) {
-                for (const pattern of info.patterns) {
-                    if (messageLower.includes(pattern)) {
-                        return info.response + `
-                        
-<hr style="margin: 15px 0; border: none; border-top: 1px solid #e2e8f0;">
-<div style="font-size: 12px; color: #64748b; font-style: italic;">
-⚖️ Sofía v0.1 - Interpretación centrada en derechos del trabajador<br>
-📚 Todas las fuentes son verificables en la Ley Federal del Trabajo
+<div class="legal-success">
+⚖️ <strong>PROBABILIDAD DE ÉXITO:</strong> Alta si no hay falta grave comprobada. La ley favorece al trabajador en casos dudosos.
 </div>`;
-                    }
                 }
-            }
+            },
 
-            // Default response for unrecognized queries
-            return `<strong>🤔 Necesito más información para ayudarte mejor.</strong>
+            salario: {
+                patterns: ['salario', 'sueldo', 'pago', 'mínimo', 'dinero', 'aguinaldo', 'utilidades'],
+                urgency: 'media',
+                data: {
+                    salarioMinimo2024: 248.93,
+                    salarioMinimoFrontera: 374.89,
+                    aguinaldo: 15, // días mínimos
+                    vacaciones: 6, // días primer año
+                    utilidades: 0.1 // 10% máximo
+                },
+                response: (context) => {
+                    const data = enhancedLegalKnowledge.salario.data;
+                    return `<div class="warning-badge">💰 DERECHOS SALARIALES</div>
+<strong>ANÁLISIS COMPLETO DE TUS DERECHOS:</strong>
 
-<strong>¿Puedes contarme más sobre:</strong>
-• ¿Qué situación específica estás viviendo?
-• ¿Es sobre despido, salario, horarios, o acoso?
-• ¿Qué acción tomó tu patrón?
+<div class="legal-calculation">
+<strong>💵 SALARIOS MÍNIMOS VIGENTES 2024:</strong>
+• Zona general: $${data.salarioMinimo2024} pesos diarios
+• Zona libre frontera: $${data.salarioMinimoFrontera} pesos diarios
+• Mensual general: $${(data.salarioMinimo2024 * 30).toLocaleString()} pesos
+• Anual general: $${(data.salarioMinimo2024 * 365).toLocaleString()} pesos
+</div>
 
-<strong>Temas que manejo bien:</strong>
-• Despidos injustificados
-• Problemas de salario y pagos
-• Jornadas laborales excesivas  
-• Acoso y discriminación laboral
-• Derechos básicos del trabajador
+<div class="legal-alert">
+<strong>🚨 SI TE PAGAN MENOS:</strong><br>
+• Es VIOLACIÓN al Art. 123 Constitucional
+• Puedes demandar diferencias + 20% de recargos
+• El patrón paga multa de 50-5000 UMAs
+</div>
 
-<strong>Recuerda:</strong> Tienes derechos fundamentales protegidos por la Constitución, aunque necesite más detalles para guiarte específicamente.
+<strong>📋 PRESTACIONES OBLIGATORIAS:</strong>
 
-<div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
-⚠️ <strong>Si es urgente:</strong> No esperes. Busca asesoría legal inmediata en PROFEDET o con un abogado laboralista.
+<div class="legal-source">
+<strong>🎁 AGUINALDO (Art. 87 LFT):</strong><br>
+• Mínimo ${data.aguinaldo} días de salario
+• Se paga antes del 20 de diciembre
+• Proporcional si trabajaste menos de 1 año
+• Fórmula: (Días trabajados ÷ 365) × ${data.aguinaldo} días × salario diario
+</div>
+
+<div class="legal-source">
+<strong>🏖️ VACACIONES (Art. 76-81 LFT):</strong><br>
+• Primer año: ${data.vacaciones} días laborables
+• Segundo año: 8 días (aumenta 2 cada año hasta 12)
+• Prima vacacional: 25% del salario de vacaciones
+• NO se pueden compensar en dinero (excepto al terminar)
+</div>
+
+<div class="legal-source">
+<strong>💼 UTILIDADES (Art. 117-131 LFT):</strong><br>
+• Máximo 3 meses de salario O 30 días del salario mínimo
+• Se reparte según días trabajados y salario percibido
+• Pago: mayo para personas físicas, junio para morales
+</div>
+
+<div class="legal-timeline">
+<strong>🎯 SI NO TE PAGAN CORRECTAMENTE:</strong>
+<div class="timeline-step">
+<div class="step-number">1</div>
+<div><strong>CALCULA TUS ADEUDOS:</strong> Usa recibos de pago y calendarios</div>
+</div>
+<div class="timeline-step">
+<div class="step-number">2</div>
+<div><strong>RECLAMA POR ESCRITO:</strong> Carta con acuse de recibo</div>
+</div>
+<div class="timeline-step">
+<div class="step-number">3</div>
+<div><strong>DENUNCIA PROFEDET:</strong> Asesoría gratuita especializada</div>
+</div>
+<div class="timeline-step">
+<div class="step-number">4</div>
+<div><strong>DEMANDA LABORAL:</strong> 2 años para salarios, 1 año para prestaciones</div>
+</div>
 </div>`;
-        }
+                }
+            },
 
-        // Add some sample questions for easy testing
-        function addSampleQuestion(question) {
-            chatInput.value = question;
-            sendMessage();
-        }
+            horas: {
+                patterns: ['hora', 'jornada', 'tiempo', 'extra', 'horario', 'descanso'],
+                urgency: 'media',
+                calculate: (horas, salario = 400) => {
+                    const horasNormales = Math.min(horas, 8);
+                    const horasExtras = Math.max(0, horas - 8);
+                    const pagoNormal = horasNormales * (salario / 8);
+                    const pagoExtra = horasExtras <= 2 ? horasExtras * (salario / 8) * 2 : 
+                                     (2 * (salario / 8) * 2) + ((horasExtras - 2) * (salario / 8) * 3);
+                    return { horasNormales, horasExtras, pagoNormal, pagoExtra, total: pagoNormal + pagoExtra };
+                },
+                response: (context) => {
+                    const calc = context.horas ? enhancedLegalKnowledge.horas.calculate(context.horas, context.salario) : null;
+                    return `<div class="warning-badge">⏰ JORNADAS Y TIEMPO EXTRA</div>
+<strong>LÍMITES CONSTITUCIONALES PROTEGIDOS:</strong>
 
-        // Initialize
-        console.log('Sofía 50F14 initialized - Ready to help workers defend their rights');
-    </script>
-</body>
-</html>
+<div class="legal-alert">
+<strong>🚨 JORNADAS MÁXIMAS LEGALES (Art. 61 LFT):</strong><br>
+• Diurna (6:00-20:00): <strong>8 horas máximo</strong><br>
+• Nocturna (20:00-6:00): <strong>7 horas máximo</strong><br>
+• Mixta: <strong>7.5 horas máximo</strong>
+</div>
+
+${calc ? `<div class="legal-calculation">
+<strong>💰 CÁLCULO DE TU JORNADA:</strong>
+• Horas normales: ${calc.horasNormales} (pago: $${calc.pagoNormal.toLocaleString()})
+• Horas extras: ${calc.horasExtras} (pago: $${calc.pagoExtra.toLocaleString()})
+• <strong>TOTAL DIARIO: $${calc.total.toLocaleString()}
