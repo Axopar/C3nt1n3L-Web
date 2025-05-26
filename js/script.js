@@ -61,7 +61,13 @@ function generarRespuesta(pregunta) {
 
   return respuesta;
 }
-
+const conocimientoJuridico = {
+derechoCivil: {
+contratos: {
+respuesta: "Esta es una respuesta sobre
+contratos"
+}
+};
 // Función para manejar el envío de la pregunta y la respuesta del chatbot
 function enviarPregunta() {
   const pregunta = document.getElementById("pregunta").value;
