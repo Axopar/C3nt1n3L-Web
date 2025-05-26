@@ -1,61 +1,23 @@
 <!DOCTYPE html>
-<html lang="es" dir="ltr">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sofía 50F14 - Asistente Legal Laboral</title>
-  <meta name="description" content="Asistente legal gratuita para derechos laborales en México. Sin abogados, sin dinero, pero no sin derechos." />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Legal</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-  <main class="chat-container" role="main">
-    <header class="chat-header">
-      <span class="status-indicator" aria-label="Sofía está en línea"></span>
-      <h1 aria-level="1">⚖️ Sofía 50F14</h1>
-      <p class="tagline">"Sin abogados, sin dinero, pero no sin derechos"</p>
-    </header>
-
-    <section id="chatMessages" class="chat-messages" aria-live="polite">
-      <article class="welcome-message" aria-label="Mensaje de bienvenida">
-        <h2>🛡️ Bienvenid@ a Sofía</h2>
-        <p><strong>Tu asistente legal descentralizada para derechos laborales</strong></p>
-        <p><strong>Estoy aquí si:</strong></p>
-        <ul>
-          <li>Te despidieron injustamente</li>
-          <li>No te pagan horas extras</li>
-          <li>Sufres acoso laboral</li>
-          <li>Necesitas conocer tus derechos</li>
-        </ul>
-        <p><strong>Escribe tu situación y te ayudo con:</strong> Información legal precisa, próximos pasos concretos, y fundamentos constitucionales.</p>
-        <p class="legal-meta">🔒 Privacidad total • 📚 Fuentes verificables • ⚖️ Perspectiva del trabajador</p>
-      </article>
+  <header>
+    <h1>Chatbot Legal</h1>
+  </header>
+  <main>
+    <section id="chatbot">
+      <h2>Pregúntame algo</h2>
+      <input type="text" id="pregunta" placeholder="Escribe tu pregunta">
+      <button id="enviar">Enviar</button>
+      <div id="respuesta"></div>
     </section>
-
-    <div class="typing-indicator" id="typingIndicator" aria-hidden="true">
-      <div class="typing-dots" aria-label="Sofía está escribiendo...">
-        <span></span><span></span><span></span>
-      </div>
-      <p>Sofía está escribiendo...</p>
-    </div>
-
-    <footer class="chat-input-container">
-      <form class="chat-input-wrapper" id="chatForm" role="form" aria-label="Formulario de entrada de mensaje">
-        <label for="chatInput" class="visually-hidden">Describe tu situación laboral</label>
-        <textarea 
-          id="chatInput" 
-          class="chat-input" 
-          placeholder="Describe tu situación laboral... (ej: Me despidieron sin justificación)" 
-          rows="1" 
-          aria-required="true"
-        ></textarea>
-        <button id="sendButton" class="send-button" type="submit" aria-label="Enviar mensaje">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-          </svg>
-        </button>
-      </form>
-    </footer>
   </main>
-  <script src="app.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
