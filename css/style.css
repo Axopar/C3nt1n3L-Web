@@ -1,97 +1,80 @@
-/* Estilos generales */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+/* Fuente personalizada */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #0f0f0f;
+  color: #f2f2f2;
 }
 
-header {
-  background-color: #333;
-  color: #fff;
+/* Contenedor centrado */
+.container {
+  width: 90%;
+  max-width: 960px;
+  margin: auto;
   padding: 20px;
+}
+
+/* Estilo del header */
+header {
+  background: #1a1a1a;
+  border-bottom: 2px solid #00ffc3;
+  text-align: center;
+  padding: 40px 0;
+}
+
+header h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5em;
+  margin: 0;
+  color: #00ffc3;
+}
+
+header p {
+  color: #cccccc;
+  font-size: 1em;
+}
+
+/* Sección de alerta */
+.alerta {
+  background: #1e1e1e;
+  border-left: 5px solid red;
+  padding: 30px;
+  margin: 30px 0;
+  border-radius: 8px;
   text-align: center;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+.alerta h2 {
+  margin-top: 0;
+  font-size: 1.8em;
 }
 
-section {
-  background-color: #fff;
-  padding: 20px;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.alerta p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
 }
 
-h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-}
-
-button {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
+/* Botón */
+.boton {
+  display: inline-block;
+  background: #00ffc3;
+  color: #000;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-weight: bold;
   border-radius: 5px;
-  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-button:hover {
-  background-color: #444;
+.boton:hover {
+  background: #00cc99;
 }
 
-#respuesta {
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-}
-
-/* Estilos para la sección del chatbot */
-
-#chatbot {
-  width: 80%;
-  max-width: 400px;
-  margin: 20px auto;
-}
-
-#pregunta {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-}
-
-#enviar {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#enviar:hover {
-  background-color: #444;
+/* Footer */
+footer {
+  background: #111;
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid #333;
+  font-size: 0.9em;
 }
